@@ -1,0 +1,13 @@
+function Login() {
+  return (
+    <form>
+      <label for="username">Username:</label>
+      <input id="username" name="username" type="text" />
+      <label for="password">Password:</label>
+      <input id="password" name="password" type="password" />
+      <button type="submit">Login</button>
+    </form>
+  );
+}
+
+export default Login;

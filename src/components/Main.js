@@ -1,4 +1,5 @@
 import "../scss/Main.scss";
+import Button from "react-bootstrap/Button";
 
 function click() {
   console.log("Clicked function");
@@ -19,6 +20,10 @@ function Main() {
       <h2 className="Main-h2">Main Section</h2>
       <p style={{ color: "red" }}>This is text</p>
       <a href={link}>Link</a>
+      <Button variant="primary" onClick={() => console.log("Click")}>
+        Click
+      </Button>
+
       <button onClick={() => console.log("Click")}>Click</button>
 
       <button onClick={click}>Click</button>
