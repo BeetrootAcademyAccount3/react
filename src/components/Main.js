@@ -1,5 +1,6 @@
 import "../scss/Main.scss";
-import Button from "react-bootstrap/Button";
+import AlertPage from "./AlertPage";
+import ListPage from "./ListPage";
 
 function click() {
   console.log("Clicked function");
@@ -18,8 +19,9 @@ function Main() {
   return (
     <div>
       <h2 className="Main-h2">Main Section</h2>
+      <AlertPage />
       <p style={{ color: "red" }}>This is text</p>
-      <a href={link}>Link</a>
+      {/* <a href={link}>Link</a>
       <Button variant="primary" onClick={() => console.log("Click")}>
         Click
       </Button>
@@ -28,7 +30,8 @@ function Main() {
 
       <button onClick={click}>Click</button>
       <button onClick={() => clickArg("Clicked from arg")}>Click</button>
-      <button onClick={handleClick.bind(null, "handleClick")}>Click</button>
+      <button onClick={handleClick.bind(null, "handleClick")}>Click</button> */}
+      <ListPage />
     </div>
   );
 }
