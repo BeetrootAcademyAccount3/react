@@ -1,7 +1,7 @@
-import CardPage from "./CardPage";
-import "../scss/ListPage.scss";
+import CardItem from "./CardItem";
+import "./CardList.scss";
 
-function ListPage() {
+function CardList() {
   const lotteryNumbers = [2, 34, 24, 11, 7, 19];
   const dogs = [
     {
@@ -28,6 +28,18 @@ function ListPage() {
       age: 3,
       description: "The worst dog ever!!!",
     },
+    {
+      id: 5,
+      name: "Ana",
+      age: 2,
+      description: "Bad dog",
+    },
+    {
+      id: 6,
+      name: "Sven",
+      age: 3,
+      description: "The worst dog ever!!!",
+    },
   ];
 
   return (
@@ -40,12 +52,11 @@ function ListPage() {
           </span>
         ))}
       </ul>
-      <ul className="ListPage-list">
+      <ul className="CardList-list">
         {dogs.map((dog, index) => {
-          console.log(dog);
           return (
             <li key={dog.id}>
-              <CardPage dogName={dog.name} desc={dog.description} />
+              <CardItem dog={dog} />
             </li>
           );
         })}
@@ -54,4 +65,4 @@ function ListPage() {
   );
 }
 
-export default ListPage;
+export default CardList;
