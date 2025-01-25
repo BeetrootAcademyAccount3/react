@@ -2,9 +2,13 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import styles from "./CardItem.module.scss";
 
-function CardItem({ dog }) {
+function CardItem({ dog, adoptDog, selectDogDetails }) {
   function handleAdoption() {
-    //console.log(`${dog.name} with id: ${dog.id} is Adopted`);
+    adoptDog(dog.id);
+  }
+
+  function handleSelectDogDetails() {
+    selectDogDetails(dog.id);
   }
 
   return (
@@ -15,6 +19,9 @@ function CardItem({ dog }) {
         <Card.Text>{dog.desc}</Card.Text>
         <Button variant="primary" onClick={handleAdoption}>
           Adopt
+        </Button>
+        <Button variant="secondary" onClick={handleSelectDogDetails}>
+          Details
         </Button>
       </Card.Body>
     </Card>

@@ -1,66 +1,84 @@
 import CardItem from "./CardItem";
 import "./CardList.scss";
 
+import { useState } from "react";
+import DogDetails from "./Comments/DogDetails";
+
 function CardList() {
-  const lotteryNumbers = [2, 34, 24, 11, 7, 19];
   const dogs = [
     {
-      id: 1,
+      id: 0,
       name: "Marcos",
       age: 5,
       description: "Good dog",
     },
     {
-      id: 2,
+      id: 1,
       name: "Alex",
       age: 2,
       description: "Decent dog",
     },
     {
-      id: 3,
+      id: 2,
       name: "John",
       age: 2,
       description: "Bad dog",
     },
     {
-      id: 4,
+      id: 3,
       name: "Julio",
       age: 3,
       description: "The worst dog ever!!!",
     },
     {
-      id: 5,
+      id: 4,
       name: "Ana",
       age: 2,
       description: "Bad dog",
     },
     {
-      id: 6,
+      id: 5,
       name: "Sven",
       age: 3,
       description: "The worst dog ever!!!",
     },
   ];
 
+  const [dogList, setDogList] = useState(dogs);
+  const [selectedDog, setSelectedDog] = useState({});
+  const [isDogSelected, setIsDogSelected] = useState(false);
+
+  function adoptDog(id) {
+    const updatedDogList = dogList.filter((dog) => dog.id !== id);
+
+    setDogList(updatedDogList);
+  }
+
+  function selectDogDetails(id) {
+    const dogDetails = dogList[id];
+    setSelectedDog(dogDetails);
+    setIsDogSelected((prevState) => !prevState);
+  }
+
   return (
     <div>
-      <ul>
-        {lotteryNumbers.map((number, index) => (
-          <span key={index}>
-            {number}
-            {index !== lotteryNumbers.length - 1 && <span>,</span>}
-          </span>
-        ))}
-      </ul>
-      <ul className="CardList-list">
-        {dogs.map((dog, index) => {
-          return (
-            <li key={dog.id}>
-              <CardItem dog={dog} />
-            </li>
-          );
-        })}
-      </ul>
+      {isDogSelected ? (
+        <DogDetails selectedDog={selectedDog} />
+      ) : (
+        <ul className="CardList-list">
+          {dogList.map((dog, index) => {
+            return (
+              <li key={dog.id}>
+                <CardItem
+                  dog={dog}
+                  adoptDog={adoptDog}
+                  selectDogDetails={selectDogDetails}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }
