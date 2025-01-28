@@ -3,6 +3,8 @@ import Card from "react-bootstrap/Card";
 import styles from "./CardItem.module.scss";
 
 function CardItem({ dog, adoptDog, selectDogDetails }) {
+  const values = [];
+
   function handleAdoption() {
     adoptDog(dog.id);
   }

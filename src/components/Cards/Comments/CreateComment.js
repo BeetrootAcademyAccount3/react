@@ -13,7 +13,7 @@ class CreateComment extends Component {
   //Old way
   handleSubmit(event) {
     const newComment = {
-      user: this.state.isAnonymous
+      name: this.state.isAnonymous
         ? "Anonymous"
         : event.target.formBasicUsername.value,
       body: event.target.formBasicComment.value,
@@ -22,6 +22,7 @@ class CreateComment extends Component {
     this.props.addComment(newComment);
 
     event.preventDefault();
+    event.target.reset();
   }
 
   //New way
@@ -52,17 +53,13 @@ class CreateComment extends Component {
           <Form.Label>Comment</Form.Label>
           <Form.Control type="text" placeholder="EnterComment" />
         </Form.Group>
-        {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group> */}
-
-        <Button
-          variant="primary"
-          type="button"
-          onClick={this.handleMakeAnonymous}
-        >
-          Make Anonymous
-        </Button>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check
+            type="checkbox"
+            label="Make Anonymous"
+            onClick={this.handleMakeAnonymous}
+          />
+        </Form.Group>
         <Button variant="primary" type="submit">
           Submit
         </Button>

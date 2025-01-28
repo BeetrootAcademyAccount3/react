@@ -1,4 +1,5 @@
 import CardItem from "./CardItem";
+import Button from "react-bootstrap/Button";
 import "./CardList.scss";
 
 import { useState } from "react";
@@ -57,13 +58,26 @@ function CardList() {
   function selectDogDetails(id) {
     const dogDetails = dogList[id];
     setSelectedDog(dogDetails);
+    setDogSelected();
+  }
+
+  function setDogSelected() {
     setIsDogSelected((prevState) => !prevState);
   }
 
   return (
     <div>
       {isDogSelected ? (
-        <DogDetails selectedDog={selectedDog} />
+        <div>
+          <Button
+            className="m-2"
+            variant="outline-info"
+            onClick={setDogSelected}
+          >
+            {"<"} Back
+          </Button>
+          <DogDetails selectedDog={selectedDog} />
+        </div>
       ) : (
         <ul className="CardList-list">
           {dogList.map((dog, index) => {
