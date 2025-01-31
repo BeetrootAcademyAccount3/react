@@ -10,7 +10,7 @@ function ToastMessage() {
           Admin
         </strong>
         <small>
-          <i class="bi bi-alarm"></i>11 mins ago
+          <i className="bi bi-alarm"></i>11 mins ago
         </small>
       </Toast.Header>
       <Toast.Body>Urgent message for Admin.</Toast.Body>

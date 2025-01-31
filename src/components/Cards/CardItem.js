@@ -1,9 +1,11 @@
+import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import styles from "./CardItem.module.scss";
+import { ThemeContext } from "../Home";
 
 function CardItem({ dog, adoptDog, selectDogDetails }) {
-  const values = [];
+  const darkTheme = useContext(ThemeContext);
 
   function handleAdoption() {
     adoptDog(dog.id);
@@ -14,7 +16,7 @@ function CardItem({ dog, adoptDog, selectDogDetails }) {
   }
 
   return (
-    <Card className={styles.dogCard}>
+    <Card className={darkTheme ? styles.dogItemDark : styles.dogItemLight}>
       <Card.Img variant="top" src="https://picsum.photos/id/237/200/300" />
       <Card.Body>
         <Card.Title>{dog.name}</Card.Title>

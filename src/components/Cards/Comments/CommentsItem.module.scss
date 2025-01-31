@@ -1,0 +1,21 @@
+@mixin comment-item {
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 8px 8px 8px 40px;
+}
+
+.commentItemDark {
+  @include comment-item;
+  background-color: black;
+  border-color: white;
+  color: white;
+}
+
+.commentItemLight {
+  @include comment-item;
+  background-color: transparent;
+  border-color: pink;
+  color: black;
+}

@@ -1,3 +1,14 @@
-.dogCard {
-  width: 12rem;
+@mixin card-item {
+  width: 8rem;
+}
+
+.dogItemDark {
+  color: white;
+  background-color: black;
+  border-color: white;
+}
+.dogItemLight {
+  color: black;
+  background-color: white;
+  border-color: pink;
 }

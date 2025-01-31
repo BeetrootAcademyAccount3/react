@@ -1,42 +1,47 @@
-import { useState } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import CreateDonation from "./CreateDonation";
-
-function defaultCounter() {
-  console.log("In the default counter");
-  return 0;
-}
+import Button from "react-bootstrap/Button";
 
 function Donations() {
-  //   const [counter, setCounter] = useState(0);
-  const [state, setState] = useState({ counter: 0, currency: "$" });
+  const [counter, setCounter] = useState(0);
+  const [currencyDollar, setCurrencyDollar] = useState(true);
+  const lev = useMemo(() => {
+    return convertToLev(counter);
+  }, [counter]);
+
+  function handleCurrency() {
+    setCurrencyDollar((prevState) => !prevState);
+  }
 
   function decreaseValue() {
-    setState((prevCount) => {
-      if (prevCount.counter > 0) {
-        return { ...prevCount, counter: prevCount.counter - 1 };
-      }
-      return prevCount;
-    });
+    setCounter((prevCount) => (prevCount > 0 ? prevCount + 1 : prevCount));
   }
 
   function increaseValue() {
-    setState((prevCount) => ({
-      ...prevCount,
-      counter: prevCount.counter + 1,
-    }));
+    setCounter((prevCount) => prevCount + 1);
   }
+
   return (
     <div>
       <h2>
-        Donation value: {state.counter} {state.currency}
+        Donation value: {counter} {currencyDollar ? "$" : "€"}
       </h2>
+      <h2>In leva:{lev} lv.</h2>
       <CreateDonation
-        counter={state.counter}
+        counter={counter}
         increaseValue={increaseValue}
         decreaseValue={decreaseValue}
       />
+      <Button variant="primary" onClick={handleCurrency}>
+        Primary
+      </Button>
     </div>
   );
+}
+
+function convertToLev(num) {
+  for (let i = 0; i <= 1000000000; i++) {}
+  return num * 2;
 }
 
 export default Donations;
