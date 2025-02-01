@@ -3,11 +3,13 @@
 }
 
 .dogItemDark {
+  @include card-item;
   color: white;
   background-color: black;
   border-color: white;
 }
 .dogItemLight {
+  @include card-item;
   color: black;
   background-color: white;
   border-color: pink;

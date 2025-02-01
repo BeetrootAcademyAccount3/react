@@ -1,10 +1,12 @@
-import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import styles from "./CardItem.module.scss";
+import { useContext } from "react";
 import { ThemeContext } from "../Home";
 
 function CardItem({ dog, adoptDog, selectDogDetails }) {
+  const values = [];
+
   const darkTheme = useContext(ThemeContext);
 
   function handleAdoption() {

@@ -5,21 +5,23 @@ import React, { useState } from "react";
 export const ThemeContext = React.createContext(true);
 
 function Home() {
-  const [activeTab, setActiveTab] = useState("dogs");
   const [darkTheme, setDarkTheme] = useState(true);
+  const [currentPage, setCurrentPage] = useState("donations");
 
-  const toggleTheme = () => {
+  function toggleTheme() {
+    console.log("Theme");
     setDarkTheme((prevState) => !prevState);
-  };
+  }
+
   return (
     <ThemeContext.Provider value={darkTheme}>
       <Header
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        toggleTheme={toggleTheme}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         darkTheme={darkTheme}
+        toggleTheme={toggleTheme}
       />
-      <Main activeTab={activeTab} />
+      <Main currentPage={currentPage} />
     </ThemeContext.Provider>
   );
 }

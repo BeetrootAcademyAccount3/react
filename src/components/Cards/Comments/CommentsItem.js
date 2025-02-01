@@ -6,18 +6,19 @@ class CommentsItem extends Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
       <ThemeContext.Consumer>
         {(darkTheme) => (
-          <div
+          <li
             className={
               darkTheme ? styles.commentItemDark : styles.commentItemLight
             }
           >
-            <h2>{this.props.comment.name}</h2>
+            <h3>{this.props.comment.name}</h3>
             <p>{this.props.comment.body}</p>
-          </div>
+          </li>
         )}
       </ThemeContext.Consumer>
     );

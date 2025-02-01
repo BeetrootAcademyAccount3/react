@@ -2,8 +2,19 @@ import { useEffect, useState } from "react";
 
 function AboutUs() {
   const [text, setText] = useState("");
+  const [error, setError] = useState("");
+
+  let sub = 0;
+  let interval;
 
   useEffect(() => {
+    interval = setInterval(() => {
+      sub += 1;
+      console.log(sub);
+    }, 3000);
+
+    console.log("useEffect triggered once!");
+
     const apiUrl = "https://jsonplaceholder.typicode.com/comments";
 
     fetch(apiUrl)
@@ -14,20 +25,42 @@ function AboutUs() {
         return response.json();
       })
       .then((data) => {
-        let text = "";
-
-        data.slice(0, 10).forEach((element) => {
-          text += element.body;
+        data.slice(0, 10).forEach((data) => {
+          setText((prevState) => prevState + data.body);
         });
-
-        setText(text);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        this.setError(error);
+      });
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("useEffect triggered always on State change!");
+  });
 
-  return <div>{text}</div>;
+  useEffect(() => {
+    console.log("useEffect triggered only on text change!");
+  }, [text]);
+
+  return (
+    <div>
+      <h1>About Us</h1>
+      <p style={{ color: "red" }}>{error}</p>
+      <p>{text}</p>
+      <button
+        onClick={() => setError((prevState) => prevState + "Another error!")}
+      >
+        Set Error
+      </button>
+      <button onClick={() => setText((prevState) => prevState + "X")}>
+        Re-render
+      </button>
+    </div>
+  );
 }
 
 export default AboutUs;
