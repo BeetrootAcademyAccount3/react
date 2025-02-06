@@ -21,7 +21,7 @@ function Home() {
         darkTheme={darkTheme}
         toggleTheme={toggleTheme}
       />
-      <Main currentPage={currentPage} />
+      {/* <Main currentPage={currentPage} /> */}
     </ThemeContext.Provider>
   );
 }

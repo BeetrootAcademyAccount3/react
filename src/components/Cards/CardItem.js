@@ -3,6 +3,8 @@ import Card from "react-bootstrap/Card";
 import styles from "./CardItem.module.scss";
 import { useContext } from "react";
 import { ThemeContext } from "../Home";
+import { NavLink } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function CardItem({ dog, adoptDog, selectDogDetails }) {
   const values = [];
@@ -23,12 +25,10 @@ function CardItem({ dog, adoptDog, selectDogDetails }) {
       <Card.Body>
         <Card.Title>{dog.name}</Card.Title>
         <Card.Text>{dog.desc}</Card.Text>
-        <Button variant="primary" onClick={handleAdoption}>
-          Adopt
-        </Button>
-        <Button variant="secondary" onClick={handleSelectDogDetails}>
-          Details
-        </Button>
+        <Button variant="primary">Adopt</Button>
+        <Link to={`${dog.id}`}>
+          <Button variant="secondary">Details</Button>
+        </Link>
       </Card.Body>
     </Card>
   );
