@@ -11,3 +11,11 @@ html {
 #root {
   height: 100vh;
 }
+
+.auth-form {
+  border: 10px solid black;
+  background-color: aqua;
+  border-radius: 8px;
+  padding: 8px;
+  height: 100%;
+}

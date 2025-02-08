@@ -1,53 +1,49 @@
-import { useState, useRef, useEffect } from "react";
-
+import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const renderCount = useRef(0);
-  const inputRef = useRef();
+  const [formState, setFormState] = useState("login");
 
-  useEffect(() => {
-    renderCount.current = renderCount.current + 1;
-  });
-  function handleRef() {
-    inputRef.current.focus();
-    inputRef.current.value = "Username"; //Bad Practice
+  async function signUp() {
+    try {
+      await createUserWithEmailAndPassword(auth, username, password);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  const prevPass = useRef("");
-  useEffect(() => {
-    prevPass.current = password;
-  }, [password]);
-
   return (
-    <div>
-      <p>
-        Previous Password: {prevPass.current} / Current Password: {password}
-      </p>
-      <p style={{ marginLeft: "40px" }}>{renderCount.current}</p>
-      <form>
-        <label htmlFor="username">Username:</label>
-        <input
-          ref={inputRef}
-          id="username"
-          name="username"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="button" onClick={handleRef}>
-          Ref
-        </button>
-
-        <button type="submit">Login</button>
+    <div className="d-flex justify-content-center align-items-center">
+      <form className="auth-form">
+        <div className="d-flex justify-content-center align-items-center">
+          <label htmlFor="username">Username:</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="d-flex justify-content-center align-items-center">
+          <label htmlFor="password">Password:</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="d-flex justify-content-center align-items-center">
+          <button type="button">Login</button>
+          <button type="button" onClick={signUp}>
+            Sign Up
+          </button>
+          <button type="button">Log Out</button>
+        </div>
       </form>
     </div>
   );

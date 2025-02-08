@@ -4,15 +4,7 @@ function AboutUs() {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
 
-  let sub = 0;
-  let interval;
-
   useEffect(() => {
-    interval = setInterval(() => {
-      sub += 1;
-      console.log(sub);
-    }, 3000);
-
     console.log("useEffect triggered once!");
 
     const apiUrl = "https://jsonplaceholder.typicode.com/comments";
@@ -32,19 +24,7 @@ function AboutUs() {
       .catch((error) => {
         this.setError(error);
       });
-
-    return () => {
-      clearInterval(interval);
-    };
   }, []);
-
-  useEffect(() => {
-    console.log("useEffect triggered always on State change!");
-  });
-
-  useEffect(() => {
-    console.log("useEffect triggered only on text change!");
-  }, [text]);
 
   return (
     <div>

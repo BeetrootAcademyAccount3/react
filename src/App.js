@@ -9,22 +9,46 @@ import Header from "../src/components/Header";
 import { Routes, Route, Link, NavLink } from "react-router-dom";
 import AboutUs from "./components/AboutUs";
 import DogDetails from "./components/Cards/Comments/DogDetails";
+import NotFound from "./components/NotFound";
+
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./config/firebase";
+import { useState } from "react";
 
 function App() {
-  const isLoggedIn = true;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      console.log(uid);
+      console.log(user);
+      setIsLoggedIn(true);
+    } else {
+      console.log("Not signed in!");
+      setIsLoggedIn(false);
+    }
+  });
 
   return (
     <div>
-      <Home />
-      <Routes>
-        <Route path="/" element={<AboutUs />} />
+      {!isLoggedIn ? (
+        <Login />
+      ) : (
+        <div>
+          <Home />
+          <Routes>
+            <Route path="/" element={<AboutUs />} />
 
-        <Route path="/dogs" element={<CardList />}>
-          <Route path=":id" element={<DogDetails />} />
-        </Route>
+            <Route path="/dogs" element={<CardList />}>
+              <Route path=":id" element={<DogDetails />} />
+            </Route>
 
-        <Route path="/donations" element={<Donations />} />
-      </Routes>
+            <Route path="/donations" element={<Donations />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      )}
     </div>
   );
 }

@@ -2,9 +2,11 @@ import CardItem from "./CardItem";
 import Button from "react-bootstrap/Button";
 import "./CardList.scss";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DogDetails from "./Comments/DogDetails";
 import { Outlet } from "react-router-dom";
+import { getDocs, collection, addDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 export const dogs = [
   {
@@ -50,6 +52,38 @@ function CardList() {
   const [selectedDog, setSelectedDog] = useState({});
   const [isDogSelected, setIsDogSelected] = useState(false);
 
+  const dogsCollectionRef = collection(db, "dogs");
+
+  useEffect(() => {
+    const getDogs = async () => {
+      try {
+        const data = await getDocs(dogsCollectionRef);
+        const dogsData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        console.log(dogsData);
+        setDogList(dogsData);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getDogs();
+  }, []);
+
+  const create = async () => {
+    try {
+      await addDoc(dogsCollectionRef, {
+        name: "Zoro",
+        age: 5,
+        description: "Si",
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   function adoptDog(id) {
     const updatedDogList = dogList.filter((dog) => dog.id !== id);
 
@@ -68,6 +102,7 @@ function CardList() {
 
   return (
     <div>
+      <button onClick={create}>Create</button>
       {isDogSelected ? (
         <div>
           <Button
